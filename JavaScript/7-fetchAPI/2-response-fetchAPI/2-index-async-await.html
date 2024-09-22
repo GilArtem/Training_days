@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>res FETCH</title>
+</head>
+<body>
+    <script>
+        getRes();
+        
+        async function getRes(){
+            const res = await fetch('/hello');
+            
+            console.log('res.status: ', res.status);
+            console.log('res.statusText: ', res.statusText);
+            console.log('res.url: ', res.url);
+            console.log('res.type: ', res.type);
+            console.log('res.ok: ', res.ok);
+            console.log('res.redirected: ', res.redirected);
+            console.log('res.headers: ', res.headers);
+            console.log('res.body: ', res.body);
+            console.log('res.bodyUsed: ', res.bodyUsed);
+        };
+    </script>
+</body>
+</html>

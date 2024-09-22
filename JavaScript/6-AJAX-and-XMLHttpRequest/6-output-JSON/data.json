@@ -1,0 +1,29 @@
+{ 
+    "users": [
+        {
+            "name": "Tom", 
+            "age": 39, 
+            "contacts": 
+            {
+                "email": "tom@smail.com",
+                "phone": "+1234567890"
+            }
+        }, {
+            "name": "Bob", 
+            "age": 43, 
+            "contacts": 
+            {
+                "email": "bob@tmail.com",
+                "phone": "+1334567181"
+            }
+        }, {
+            "name": "Sam", 
+            "age": 28, 
+            "contacts": 
+            {
+                "email": "sam@xmail.com",
+                "phone": "+1434567782"
+            }
+        }
+    ]
+}

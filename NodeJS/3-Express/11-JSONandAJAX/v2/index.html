@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+</head>
+<body>
+    <h1>Введите данные</h1>
+    <form id="myForm" action="/user" method="post">
+        <p>
+            <label>Имя</label><br>
+            <input type="text" name="userName" />
+        </p>
+        <p>
+            <label>Возраст</label><br>
+            <input type="number" name="userAge" />
+        </p>
+        <input type="submit" value="Отправить" />
+    </form>
+    <script>
+        
+        // Данные для отправки:
+        const myForm = document.getElementById('myForm');
+        myForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Данные для отпраки
+            const userName = myForm.userName.value;
+            const userAge = myForm.userAge.value;
+            
+            const res = await fetch('/user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: userName, age: userAge })
+            });
+
+            // получаем присланный объект в json формате
+            const data = await res.json();
+            console.log(data.message);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!-- Формы определены в html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM SEND</title>
+</head>
+<body>
+    <!--  формы определяются вручную!! -->
+    <form id="myForm" method="post" action="/user">
+        <p>
+            <label>User Name:</label><br>
+            <input name="name" />
+        </p>
+        <p>
+            <label>User Age:</label><br>
+            <input name="age" />
+        </p>
+        <input type="submit" value="Send" />
+    </form>
+    <script>
+        // Данные для отправки 
+        // Формы определены в html
+        const myForm = document.getElementById("myForm");
+        myForm.addEventListener("submit", (el) => {
+            el.preventDefault();
+            const formData = new FormData(myForm);
+
+            const xhr = new XMLHttpRequest();  
+            xhr.onload = () => {
+                if (xhr.status == 200) { 
+                    console.log(xhr.responseText);
+                }
+            };
+            xhr.open("POST", "user", true);  
+            xhr.send(formData);
+        });
+    </script>
+</body>
+</html>

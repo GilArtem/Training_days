@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM SEND</title>
+</head>
+<body>
+    <script>
+        // данные для отпраки
+        //  формы определяются вручную!!
+        const formData = new FormData();
+        formData.append("name", "Artem");
+        formData.append("age", 27);
+
+        const xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+            if(xhr.status == 200) console.log(xhr.responseText);
+            else console.log('Ответ с сервера: ', xhr.statusText);
+        };
+        xhr.open("POST", "user", true);
+        xhr.send(formData);
+    </script>
+</body>
+</html>

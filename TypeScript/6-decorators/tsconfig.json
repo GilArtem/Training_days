@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "noEmitOnError": false,           // не прощаем ошибки!
+        "removeComments": true,
+        "outDir": "JS",
+        "sourceMap": false,               // надо сгенерировать карту для сопоставления исходных и скомпилированных файлов.
+        "strictNullChecks": true,         // не дает присваивать тип null и undefined для переменных другого типа
+        "experimentalDecorators": true
+    },
+    
+    // Можно установить набор включаемых в проект файлов с помощью files
+    // Если поле не указано, то компилируются все файлы с расширением *.ts и *.tsx в каталоге и подкаталогах проекта
+    "files": [
+        "1-decoratorOfClass.ts",
+        "2-decoratorOfMethod.ts",
+        "3-decoratorOfConstructor.ts",
+        "4-decoratorParams.ts",
+        "5-decoratorOfProperty.ts",
+        "6-accessMethodDecorator.ts",
+        "7-factoryOfDecorators.ts"
+    ],
+
+    //  exclude позволяет исключить при компиляции определенные файлы
+    "exclude":[
+        "wwwroot",
+        "node_modules"
+    ],
+} 
+

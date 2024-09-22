@@ -1,0 +1,14 @@
+{
+  "name": "4-jestfortests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "1-sum.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}

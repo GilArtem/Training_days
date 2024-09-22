@@ -1,0 +1,83 @@
+1) НАСТРОЙКИ КОМПИЛЯЦИИ (Полный список - https://www.typescriptlang.org/docs/handbook/compiler-options.html):
+
+1. Автоматическая перекомпиляция:
+- `tsc -w app.ts`
+
+2. Версия ECMAScript ( "ES3" (по умолчанию), "ES5", "ES6" / "ES2015", "ES7" / "ES2016", "ES2017", "ES2018", "ES2019", "ES2020" или "ESNext"):
+- `tsc app.ts -t ES5`
+
+3. Удаление комментариев:
+- `tsc app.ts --removeComments`
+
+4. Установка каталога для хранения скомпилированных файлов js:
+- `tsc --outDir D:\ts\js app.ts` 
+
+5. Объединение нескольких файлов TS в один файл JS:
+- `tsc --outFile output.js app.ts hello.ts`
+
+6. Тип модуля ("None", "CommonJS" (значение по умолчанию, если задана версия ECMAScript "ES3" или "ES5"), "AMD", "System", "UMD", "ES2015", "ES2020" и "ESNext".):
+- `tsc -m commonjs app.ts`
+
+7. Задать несколько параметров:
+- `tsc -t ES5 --outDir js -m commonjs app.ts`
+
+8. не надо генерировать файл javascript, если при компиляции возникли ошибки:
+- `tsc --noEmitOnError app.ts`
+
+9. Вызов справки:
+- `tsc -h` 
+
+
+
+2) ФАЙЛ tsconfig.json (Полный список опций: - https://www.typescriptlang.org/tsconfig/):
+
+1. Устанавливает корневой каталог проекта TypeScript
+2. Выполняет настройку параметров компиляции
+3. Устанавливает файлы проекта
+
+Короче, параметры компиляции в JSON-файле с помощью поля compilerOptions:
+
+{
+    // compileOnSave при значении true указывает используемой IDE сгенерировать все файлы js при каждом сохранении файлов TypeScript
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "es5",
+        "noEmitOnError": true,     // не прощаем ошибки!
+        "removeComments": true,
+        "outDir": "js",
+        "sourceMap": true,          // надо сгенерировать карту для сопоставления исходных и скомпилированных файлов.
+        "outFile": "main.js",
+        "strictNullChecks": true,    // не дает присваивать тип null и undefined для переменных другого типа
+    },
+    
+    // Можно установить набор включаемых в проект файлов с помощью files
+    // Если поле не указано, то компилируются все файлы с расширением *.ts и *.tsx в каталоге и подкаталогах проекта
+    "files":[
+        "app.ts",
+        "interfaces.ts",
+        "classes.ts",
+    ],
+
+    //  exclude позволяет исключить при компиляции определенные файлы
+    "exclude":[
+        "wwwroot",
+        "node_modules"
+    ],
+}   
+
+ВАЖНО! tsconfig.json игнорится, если компилятору передаются названия файлов, например, tsc app.ts!
+
+
+3) ТИПЫ ДАННЫХ JS:
+
+1. boolean: логическое значение true или false
+2. number: числовое значение
+3. string: строки
+4. Array: массивы
+5. кортежи
+6. Enum: перечисления
+7. Any: произвольный тип
+8. Symbol
+9. null и undefined: соответствуют значениям null и undefined в javascript
+10. Never: также представляет отсутствие значения и используется в качестве возвращаемого типа функций, которые генерируют или возвращают ошибку
+11. bigint: начиная со стандарта  ES2020! ("target": "es2020")

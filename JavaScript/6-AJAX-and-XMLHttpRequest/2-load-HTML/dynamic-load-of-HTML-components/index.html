@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DYNAMIC AJAX</title>
+</head>
+<body>
+    <nav>
+        <a href="home">Home</a> |
+        <a href="about">About</a> |
+        <a href="contact">Contact</a>
+    </nav>
+    <div id="content"></div>
+    <script>
+
+        const contentDiv = document.getElementById("content");
+
+        function loadContent(fileName){
+            const xhr = new XMLHttpRequest();
+            xhr.onload = () => {
+                if(xhr.status == 200) {
+                    contentDiv.innerHTML = xhr.responseText; // xhr.responseXML.body.innerHTML;
+                    document.title = fileName;
+                }
+            };
+            xhr.open("GET", fileName + ".html");
+            xhr.setRequestHeader("Accept", "text/html");
+            xhr.send();
+        };
+
+        // Устанавливаем обработчик нажатия для кнопок
+        const links = document.getElementsByTagName("a");
+        for(let i = 0; i < links.length; i++) {
+            links[i].addEventListener("click", (el) => {
+                loadContent(links[i].getAttribute("href"));
+                el.preventDefault();
+            });
+        };
+
+        // по умолчанию загружаем компонент home
+        loadContent("home");
+
+    </script>
+    
+    
+</body>
+</html>

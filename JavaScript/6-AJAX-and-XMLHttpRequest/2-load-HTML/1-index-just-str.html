@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>LOAD AJAX</title>
+</head>
+<body>
+<script>
+    const xhr = new XMLHttpRequest();
+    
+    xhr.onload = () => {
+        if (xhr.status == 200) console.log(xhr.responseText);
+        else console.log(`Ответ с сервера: ${xhr.statusText}`);
+    };
+
+    xhr.open('GET', '/home.html'); 
+    xhr.setRequestHeader("Accept", "text/html"); // принимаем только html
+    xhr.send();
+</script>
+</body>
+</html>

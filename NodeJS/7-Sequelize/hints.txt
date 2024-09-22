@@ -1,0 +1,24 @@
+Сопоставление некоторых типов sequelize с типами SQL:
+__________________________________________________________
+Sequelize                |   SQL
+_________________________|________________________________
+                         |
+Sequelize.STRING         |   VARCHAR(255)
+                         |
+Sequelize.STRING.BINARY  |   VARCHAR BINARY
+                         |
+Sequelize.TEXT           |   TEXT
+                         |
+Sequelize.INTEGER        |   INTEGER
+                         |
+Sequelize.FLOAT          |   FLOAT
+                         |
+Sequelize.DOUBLE         |   DOUBLE
+                         |
+Sequelize.DECIMAL        |   DECIMAL
+                         |
+Sequelize.BOOLEAN        |   TINYINT(1)
+
+
+
+// ПОЛНЫЙ НАБОР ТИПОВ В ДОКЕ https://sequelize.org/docs/v6/moved/data-types/

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who is</title>
+</head>
+<body>
+    <script>
+        sendUser();
+        async function sendUser(user){
+            const res = await fetch("/user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: "Artem",
+                    age: 27
+                })
+            });
+            const responseText = await res.text();
+            console.log(responseText);
+        }
+    </script>
+</body>
+</html>

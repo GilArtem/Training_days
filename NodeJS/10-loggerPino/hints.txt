@@ -1,0 +1,35 @@
+ИСТОЧНИК: 
+- https://habr.com/ru/articles/737982/
+
+11 ЛУЧШИХ ПРАКТИК ВЕДЕНИЯ ЖУРНАЛА В NODE JS: 
+- https://betterstack.com/community/guides/logging/nodejs-logging-best-practices/
+
+ДОКА PINO:
+- https://getpino.io/#/docs/child-loggers
+
+
+
+1. Использовать jq
+  Jq — это стильная консольная утилита для обработки JSON. 
+  Если передать в неё JSON-логи, то результатом станет их цветной форматированный вывод: 
+  
+  - `node index.js | jq` - на bash не работает!
+
+2. ИСПОЛЬЗУЙ pino-pretty для этих целей!
+
+  - `npm install pino-pretty --save-dev`
+  - `node index.js | npx pino-pretty`
+
+3. Установили значение минимального уровня логгирования в переменную окружения и играемся
+  - `PINO_LOG_LEVEL=error node index.js | npx pino-pretty`
+
+4. В Pino основным способом добавления контекстуальных данных является определение параметра mergingObject 
+   в вызываемом методе логгера:
+
+   logger.error(
+       { transaction_id: '12343_ff', user_id: 'ivanov' },
+       'Транзакция провалилась'
+   );
+
+
+

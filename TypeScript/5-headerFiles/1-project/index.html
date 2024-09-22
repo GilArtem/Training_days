@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeScript</title>
+</head>
+<body>
+    <h2>Приложение на TypeScript</h2>
+    <script>
+        let message = "Hello TypeScript!";
+        
+        function hello(){
+            console.log(message);
+        }       
+        function sum(a, b){
+            return a + b;
+        }
+
+        const tom = {
+            name: 'Tom',
+            age: 34,
+            print(){
+                console.log(`Name: ${this.name} Age: ${this.age}`);
+            }
+        }
+
+        const points = [{ X: 10, Y: 34 },
+                      { X: 24, Y: 65 },
+                      { X: 89, Y: 12 }];
+
+        class Person {
+            constructor(name, age){
+                this.name = name;
+                this.age = age;
+            }
+            display(){
+                console.log(this.name, this.age);
+            }
+        }
+    </script>
+</body>
+</html>

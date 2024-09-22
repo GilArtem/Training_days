@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOAD AJAX</title>
+</head>
+<body>
+    <div id="content"></div>
+    
+    <!-- Так можно, но у этой реализации есть недостаток:
+         Дело в том, что вместе с содержимым "home.html", на другую страницу также подгружается 
+         элементы  head, title, meta. Их нет смысла загружать на другую веб-страницу.
+         А может мы хотим загрузить какой-то определенный элемент с "home.html"! -->
+    
+    <!-- <script>
+        const contentDiv = document.getElementById("content"); // элемент для загрузки html
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = () => {
+            if(xhr.status == 200) contentDiv.innerHTML = xhr.responseText; // выводим полученый ответ в contentDiv
+            else console.log('Ответ с сервера:', xhr.statusText);
+        };
+
+        xhr.open('GET', '/home.html');
+        xhr.setRequestHeader("Accept", "text.html");
+        xhr.send();
+    </script> -->
+
+    <!-- В этом случае мы можем получить ответ через свойство responseXML и затем манипулировать ответом как стандартным документом html. -->
+    <script>
+        const contentDiv = document.getElementById('content');
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = () => {
+            // Чтобы получить ответ в виде html/xml используем свойство responseXML. 
+            // И далее, поскольку это свойство представляет объект Document, используем свойство body 
+            // для обращения к непосредственному содержимому страницы:
+            // Таким образом можно получить заголовок:                    document.title = xhr.responseXML.title;
+            // Или загрузим на страницу только текст из заголовка <ht1>:  contentDiv.innerHTML =  xhr.responseXML.querySelector("h1").textContent;
+            if (xhr.status == 200) contentDiv.innerHTML = xhr.responseXML.body.innerHTML;
+            else console.log('Ответ с сервера: ', xhr.statusText);
+        };
+
+        xhr.open("GET", "/home.html");
+        xhr.responseType = "document"; // устанавливаем тип ответа
+        xhr.setRequestHeader("Accept", "text/html");
+        xhr.send();
+    </script>
+</body>
+</html>

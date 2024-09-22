@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORKER2</title>
+</head>
+<body>
+    <script>
+        const worker = new Worker('worker.js');
+        const message = 'Hello web worker!';
+
+        console.log(`[Main thread] Send message: ${message}`);
+        
+        // Отправляем веб-воркеру сообщение
+        worker.postMessage(message);
+        
+        // Получаем от веб-воркера сообщения 
+        worker.addEventListener("message", (e) => console.log(`[Main thread] Response from worker: ${e.data}`));
+
+        // Если произошла ошибка:
+        worker.addEventListener("error", (e) => console.log('Error occurred'));
+    </script>
+</body>
+</html>

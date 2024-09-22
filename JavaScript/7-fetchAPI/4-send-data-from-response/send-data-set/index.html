@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SET DATA</title>
+</head>
+<body>
+    <script>
+        fetch('/users.json')
+            .then(res => res.json())
+            .then(users => users.forEach(user => console.log(user.name, '=>', user.age)));
+            
+            // Тоже самое с помощью async/await:
+            // getUsers();
+            // async function getUsers(){
+            // const res = await.fetch('/users.json');
+            // const users = await res.json();
+            // users.forEach(user => console.log(user.name, "=>", user.age));   
+            // };
+    </script>
+</body>
+</html>

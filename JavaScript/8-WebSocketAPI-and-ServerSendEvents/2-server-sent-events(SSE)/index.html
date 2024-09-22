@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENT EVENT</title>
+</head>
+<body>
+    <ul id="list"></ul>
+    <script>
+        const source = new EventSource('/events');
+        source.addEventListener('message', (e) => {
+            const listenItem = document.createElement('li');
+            listenItem.textContent += e.data;
+            list.appendChild(listenItem);
+        });
+    </script>
+</body>
+</html>

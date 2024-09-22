@@ -1,0 +1,32 @@
+Компиляция модуля
+
+При компиляции из командной строки или терминала для установки модуля 
+необходимо передать соответствующее значение параметру --module:
+
+`
+tsc --module commonjs main.ts // для CommonJS
+tsc --module amd main.ts // для AMD
+tsc --module umd main.ts // для UMD
+tsc --module system main.ts // для SytemJS
+tsc --module esnext main.ts // для ESNext
+`
+
+В моем случае компиляция модулей выглядит так:
+`tsc 2-main.ts --module esnext`
+
+
+A вообще можно не выебываться и зарядить все настройки в tsconfig.json%
+
+`
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noEmitOnError": true,
+        "strictNullChecks": true,
+        "outFile": "main.js"
+         
+        "target": "es2015",
+        "module": "esnext"
+    }
+}
+`

@@ -1,0 +1,16 @@
+{
+  "name": "8-mvc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0",
+    "hbs": "^4.2.0",
+    "mongoose": "^8.6.3"
+  }
+}

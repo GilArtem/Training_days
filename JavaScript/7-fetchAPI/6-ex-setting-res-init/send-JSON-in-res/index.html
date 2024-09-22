@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON SEND</title>
+</head>
+<body>
+    <script>
+        fetch('/user', {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: "Artem",
+                age: 27
+            })
+        })
+         .then(res => res.json())
+         .then(user => console.log(user.name, '-', user.age));
+    </script>
+</body>
+</html>

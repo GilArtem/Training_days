@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML AJAX</title>
+</head>
+<body>
+    <script>
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = () => {
+            if (xhr.status = 200) console.log(xhr.responseXML);  // получаем файл xml
+        }
+
+        xhr.open("GET", "/data"); 
+        xhr.responseType = "document";
+        xhr.setRequestHeader('Accept', "text/xml");  // можно еще "application/xml"
+        xhr.send();
+    </script>
+</body>
+</html>

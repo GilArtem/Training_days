@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<users>
+    <user name="Tom" age="35">
+        <contacts>
+            <email>tom@gmail.com</email>
+            <phone>+79094451212</phone>
+        </contacts>
+    </user>
+    <user name="Jarry" age="30">
+        <contacts>
+            <email>jarry@gmail.com</email>
+            <phone>+79094453213</phone>
+        </contacts>
+    </user>
+    <user name="Joy" age="40">
+        <contacts>
+            <email>joy@gmail.com</email>
+            <phone>+79094553243</phone>
+        </contacts>
+    </user>
+</users>

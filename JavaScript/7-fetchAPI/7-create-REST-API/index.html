@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API</title>
+</head>
+<style>
+    tr { height: 30px; }
+    td, th { min-width: 40px; text-align: left; }
+    a { cursor: pointer; padding: 5px; text-decoration: underline; color: navy; }
+    input { width: 180px; }
+</style>
+<body>
+    <h2>Список пользователей</h2>
+    <form name="userForm">
+        <p>
+            <label for="name">Имя:</label><br>
+            <input name="name" />
+        </p>
+        <p>
+            <label for="age">Возраст:</label><br>
+            <input name="age" />
+        </p>
+        <p>
+            <button type="submit">Сохранить</button>
+            <button type="reset">Сбросить</button>
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Возраст</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </form>
+    <script>
+        
+        //  Реализуем основную логику!
+
+        // Если он равен 0, то пользователь создается. По умолчанию при загрузке страницы эта переменная равна нулю, так как никакой пользователь не загружен на форму. 
+        // Если же userId НЕ равен 0, то пользователь ранее был загружен с помощью функции getUser, и мы собираемся отредактировать этого пользователя.
+        let userId = 0;    // id пользователя, который редактируется
+        const userForm = document.forms["userForm"];  // форма ввода
+
+        // Получаем всех пользователей (предположительно из БД)
+        async function getUsers() {
+            // отправляет запрос и получаем ответ
+            const res = await fetch('/api/users', {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            // если запрос прошел нормально
+            if(res.ok === true){
+                // получаем данные
+                const users = await res.json();
+                const rows = document.querySelector('tbody');
+                // добавляем полученные элементы в таблицу 
+                users.forEach(user => rows.append(row(user)));
+            }
+        };
+
+        // Получаем одного пользователя 
+        async function getUser(id) {
+            const res = await fetch('/api/users/' + id, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if(res.ok === true){
+                const user = await res.json();
+                userId = user.id;
+                userForm.elements['name'].value = user.name;
+                userForm.elements['age'].value = user.age;
+            }
+        };
+
+        // Добавление пользователя
+        // Если userId равен 0, то выполняется функция createUser, которая отправляет данные в POST-запросе:
+        async function createUser(userName, userAge) {
+            const res = await fetch('api/users', {
+                method: "POST",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: userName,
+                    age: parseInt(userAge, 10)
+                })
+            });
+            if (!res.ok) {
+                const errorMessage = await res.text();
+                console.error('Ошибка создания пользователя:', errorMessage);
+                return;
+            }
+            else {
+                const user = await res.json();
+                reset();
+                document.querySelector('tbody').append(row(user));
+            }
+        };
+
+        // Изменение пользователя
+        // Если ранее пользователь был загружен на форму, и в переменной userId сохранился его id, то выполняется функция editUser, которая отправляет PUT-запрос:
+        async function editUser(userId, userName, userAge) {
+            const response = await fetch("api/users", {
+                method: "PUT",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: userId,
+                    name: userName,
+                    age: parseInt(userAge, 10)
+                })
+            });
+            if (response.ok === true) {
+                const user = await response.json();
+                reset();
+                document.querySelector("tr[data-rowid='" + user.id + "']").replaceWith(row(user));
+            }
+        };
+
+        // Удаление пользователя
+        async function deleteUser(id) {
+            const response = await fetch("/api/users/" + id, {
+                method: "DELETE",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const user = await response.json();
+                document.querySelector("tr[data-rowid='" + user.id + "']").remove();
+            }
+        };
+
+        // Cброс формы и текущего идентификатора пользователя
+
+        function reset() {
+            userForm.reset();
+            userId = 0;
+        };
+
+        // Cоздание строки для таблицы
+        function row(user) {
+            
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-rowid', user.id);
+
+            const idTd = document.createElement("td");
+            idTd.append(user.id);
+            tr.append(idTd);
+
+            const nameTd = document.createElement("td");
+            nameTd.append(user.name);
+            tr.append(nameTd);
+
+            const ageTd = document.createElement("td");
+            ageTd.append(user.age);
+            tr.append(ageTd);
+
+            const linksTd = document.createElement("td");
+
+            const editLink = document.createElement("a");
+            editLink.setAttribute("data-id", user.id);
+            editLink.append("Изменить");
+            editLink.addEventListener("click", async e => {
+ 
+                e.preventDefault();
+                await getUser(user.id);
+            });
+
+            linksTd.append(editLink);
+
+            const removeLink = document.createElement("a");
+            removeLink.setAttribute("data-id", user.id);
+            removeLink.append("Удалить");
+            removeLink.addEventListener("click", async e => {
+   
+                e.preventDefault();
+                await deleteUser(user.id);
+            });
+   
+            linksTd.append(removeLink);
+            tr.appendChild(linksTd);
+
+            return tr;
+        };
+
+        // Cброс значений формы
+        userForm.addEventListener("reset", e => reset());
+
+        // Oтправка формы
+        userForm.addEventListener("submit", e => {
+            e.preventDefault();
+            const name = userForm.elements["name"].value;
+            const age = userForm.elements["age"].value;
+ 
+            if (userId === 0) createUser(name, age);
+            else editUser(userId, name, age);
+        });
+        
+        // 3агрузка пользователей
+        getUsers();
+
+    </script>
+</body>
+</html>

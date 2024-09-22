@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FETCH</title>
+</head>
+<body>
+    <script>
+        getText();
+        async function getText(){
+            // получаем объект ответа
+            const res = await fetch('/hello');
+
+            // из ответа извлекаем текст ответа
+            const responseText = await res.text();
+            
+            console.log(responseText);
+        }
+    </script>
+</body>
+</html>

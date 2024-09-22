@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OUTPUT JSON</title>
+</head>
+<body>
+    <div id="content"></div>
+    <script>
+
+        const contentDiv = document.getElementById("content");
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = () => {
+            if(xhr.status == 200) {
+                const json = xhr.response;
+                const table = createTable();
+                // выбираем все элементы user
+                const users = json.users;
+                for(let i = 0; i < users.length; i++){
+                    const user = users[i];
+                    const row = createRow(user.name, user.age, user.contacts.email);
+                    table.appendChild(row);
+                }
+                contentDiv.appendChild(table);
+            };
+        };
+        xhr.open("GET", "/data");
+        xhr.responseType = "json";
+        xhr.setRequestHeader('Accept', "application/json");
+        xhr.send();
+
+        // создаем таблицу
+        function createTable() {  
+            const table = document.createElement("table");   
+            const headerRow = document.createElement("tr");  
+            const nameColumnHeader = document.createElement("th");  
+            const ageColumnHeader = document.createElement("th");  
+            const contactColumnHeader = document.createElement("th");
+            
+            nameColumnHeader.appendChild(document.createTextNode("Name"));  
+            ageColumnHeader.appendChild(document.createTextNode("Age"));  
+            contactColumnHeader.appendChild(document.createTextNode("Contacts"));  
+            
+            headerRow.appendChild(nameColumnHeader);  
+            headerRow.appendChild(ageColumnHeader);  
+            headerRow.appendChild(contactColumnHeader);
+            
+            table.appendChild(headerRow);
+            
+            return table;
+        };
+
+        // создаем одну строку для таблицы
+        function createRow(userName, userAge, userContact) {  
+            const row = document.createElement("tr");  
+            const nameColumn = document.createElement("td");  
+            const ageColumn = document.createElement("td");  
+            const contactColumn = document.createElement("td");  
+            
+            nameColumn.appendChild(document.createTextNode(userName));  
+            ageColumn.appendChild(document.createTextNode(userAge));  
+            contactColumn.appendChild(document.createTextNode(userContact));  
+            
+            row.appendChild(nameColumn);  
+            row.appendChild(ageColumn);  
+            row.appendChild(contactColumn);  
+            
+            return row;
+        };
+    </script>
+    
+</body>
+</html>

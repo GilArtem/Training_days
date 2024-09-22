@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); %>  <!--Бошку засунули в папку partials-->
+</head>
+<body>
+    <%- include('./partials/navbar'); %>
+    <div class="container">
+        
+        <h1>Features Page</h1>
+
+        <div id="app">  <!--Ебанули спиннер-->
+            
+            <form @submit.prevent="createServer">
+                <div class="mb-3">
+                  <input class="form-control" type="text" v-model="name">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+
+                <div class="spinner-grow" role="status" v-if="servers.length === 0">  <!-- v-if="servers.length === 0" - спиннер работает до тех пор, пока он не заполнился первым значением-->
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <ul class="list-group" v-else> <!--Иначе будем показывать список-->
+                    <li class="list-group-item" v-for="server in servers" @click="remove(server.id)">  <!--Выводим список в асинхронном режиме-->
+                        {{ server.name }}
+                        <srtong>{{ server.status }}</srtong>
+                    </li>
+                </ul> 
+        </div>
+    
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="/app.js"></script>
+</body>
+</html>

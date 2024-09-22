@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB SOCKET</title>
+</head>
+<body>
+    <script>
+
+        const connection = new WebSocket("ws://localhost:3000");
+
+        // Если соединение успешно:
+        connection.onopen = (event) => {
+            console.log('Соединение установлено!');
+            
+            // Отправка сообщения серверу
+            connection.send('Привет, сервер!');
+        };
+
+        // Если ошибка:
+        connection.onerror = (error) => {
+            console.log(`WebSocket Error: ${error}`);
+        };
+
+        // Если соединение закрыто:
+        connection.onclose = (event) => {
+            console.log('Соединение закрыто!');
+        };
+
+        // Получаем ответ от сервера:
+        connection.onmessage = (event) => {
+            console.log(`Server response: ${event.data}`);
+        };
+        
+    </script>
+</body>
+</html>

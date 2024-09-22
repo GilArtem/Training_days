@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEND AJAX</title>
+</head>
+<body>
+    <script>
+        // данные для отправки 
+        const user = "Artem";
+        const xhr = new XMLHttpRequest();
+
+        // обработчик получения ответа сервера
+        xhr.onload = () => {
+            if(xhr.status == 200) console.log(xhr.responseText);
+            else console.log('Ответ с сервера: ', xhr.statusText);        
+        };
+        
+        // POST-запрос к ресурсу /user
+        xhr.open("POST", "/user");
+        xhr.send(user);
+    </script>
+</body>
+</html>
+
+<!-- 
+Для отправки применяется метод POST. А в качестве отправляемых данных выступает простая строка "Tom". 
+То есть на сервер отправляется простой текст. И поскольку сервер в ответ также отправляет текст, 
+то для получения ответа здесь применяется свойство xhr.responseText. И при запуске данной веб-страницы 
+будет выполняться отправка данных на сервер, и в консоли браузера можно будет увидеть полученный от сервера ответ.
+ -->

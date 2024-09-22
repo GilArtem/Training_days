@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOB</title>
+</head>
+<body>
+    <!-- Для показа изображения на странице -->
+    <img /> 
+    <script>
+        const img = document.querySelector('img');
+        fetch('/forest.png')
+            .then(res => res.blob())
+            .then(data => img.src = URL.createObjectURL(data));
+        
+        // async/await version
+        // const img = document.querySelector("img");
+        
+        // getImage();
+        // async function getImage() {
+        //     const response = await fetch("/forest.png");
+        //     const imgBlob = await response.blob();
+        //     img.src = URL.createObjectURL(imgBlob);
+        // } 
+    </script>
+</body>
+</html>

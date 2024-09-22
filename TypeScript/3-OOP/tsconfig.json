@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "noEmitOnError": false,     // не прощаем ошибки!
+        "removeComments": true,
+        "outDir": "JS",
+        "sourceMap": false,          // надо сгенерировать карту для сопоставления исходных и скомпилированных файлов.
+        "strictNullChecks": true,    // не дает присваивать тип null и undefined для переменных другого типа
+    },
+    
+    // Можно установить набор включаемых в проект файлов с помощью files
+    // Если поле не указано, то компилируются все файлы с расширением *.ts и *.tsx в каталоге и подкаталогах проекта
+    "files":[
+        "1-intro.ts",
+        "2-extends.ts",
+        "3-abstract.ts",
+        "4-accessModifiers.ts",
+        "5-getAndSet.ts",
+        "6-static.ts",
+        "7-interfaces.ts",
+        "8-transformationTypes.ts",
+        "9-constraints.ts",
+        "10-mixins.ts",
+    ],
+
+    //  exclude позволяет исключить при компиляции определенные файлы
+    "exclude":[
+        "wwwroot",
+        "node_modules"
+    ],
+} 

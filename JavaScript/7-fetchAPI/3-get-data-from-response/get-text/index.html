@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET DATA FROM RES</title>
+</head>
+<body>
+    <script>
+        fetch('/hello')
+            //  Получение отправленного текста
+            .then(res => res.text())
+            .then(resText => console.log(resText));
+
+            // Тоже самое с помощью async/await:
+            // getText();
+            // async function getText(){
+            //  const res = await.fetch('/hello');
+            // const resText = await res.text();
+            // console.log(resText);   
+            // };
+    </script>
+</body>
+</html>

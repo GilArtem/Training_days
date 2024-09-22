@@ -1,0 +1,7 @@
+Запуск сервера из папки api - `npm run start`
+
+Запуск и остановка  Node.js-Express внутри Docker (нужно находиться в корневой папке, где находится файл docker-compose.yml) - `docker-compose up`
+Остановить запуск контейнера - `docker-compose down`
+
+Может возникнуть ошибка сборки и тогда нужно снести и пересобрать образ - `docker-compose up --build`
+ 

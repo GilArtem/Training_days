@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET JSON</title>
+</head>
+<body>
+    <script>
+        fetch('user')
+            // Получение JSON
+            .then(res => res.json())
+            .then(user => console.log(user.name, "-", user.age));
+
+            // Тоже самое с помощью async/await:
+            // getUser();
+            // async function getUser(){
+            // const res = await.fetch('/user');
+            // const user = await res.json();
+            // console.log(user.name, "-", user.age);   
+            // };
+    </script>
+</body>
+</html>

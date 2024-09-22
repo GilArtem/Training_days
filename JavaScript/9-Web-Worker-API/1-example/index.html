@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WORKER</title>
+</head>
+<body>
+    <button id="btn">Stop</button>
+    <script>
+        const worker = new Worker('worker.js');
+        // Получаем сообщение от воркера:
+        worker.onmessage = (event) => console.log(event.data);
+        
+        // останавливаем работу Воркера с помощью кнопки:
+        document.getElementById("btn").addEventListener("click", () => {
+            worker.terminate();
+            console.log('Воркер остановлен!');
+        });
+    </script>
+</body>
+</html>

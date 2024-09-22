@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>res FETCH</title>
+</head>
+<body>
+    <script>
+        fetch('/hello')
+            .then(res => {
+                if (res.redirected){
+                    console.log("Произошел редирект на адрес", response.url);
+                    console.log(res.headers.get("Secret-Code"));
+                }
+            });
+    </script>
+</body>
+</html>

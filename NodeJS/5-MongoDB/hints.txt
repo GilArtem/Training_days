@@ -1,0 +1,151 @@
+Ссылка на обучающий источник: - https://metanit.com/nosql/mongodb/2.4.php
+
+
+
+ИНФО
+На данный момент у меня установлен:
+- MongoDB shell version v5.0.27
+- mongodb-community@4.4
+
+ПРОВЕРКА УСТАНОВЛЕННЫХ ПАКЕТОВ:
+`brew list | grep mongodb`
+
+
+
+
+// ПОСЕЛЕДОВАТЕЛЬНОСТЬ РАБОТЫ :
+
+1. СТАРТ ДБ:
+`brew services start mongodb/brew/mongodb-community@4.4`
+
+2. ПОДКЛЮЧЕНИЕ(в новом терминале):
+`mongo`
+
+3. СТОП ДБ:
+`brew services stop mongodb/brew/mongodb-community@4.4`
+
+
+
+
+// ОСНОВНЫЕ КОМАНДЫ:
+
+§ СПИСОК ВСЕХ БД:
+`show dbs`
+
+§ СОЗДАНИЕ ИЛИ ПЕРЕКЛЮЧЕНИЕ НА БД:
+`use nameDataBase`
+
+§ СОЗДАНИЕ КОЛЛЕКЦИИ:
+`db.createCollection("nameCollection")`
+` db.createCollection("profiles", {capped:true, size:9500, max: 150})`
+
+§ ВСТАВКА ДОКУМЕНТА:
+`db.nameCollection.insertOne({ name: "Artem", age: 27 })`
+
+§ ДОБАВЛЕНИЕ НЕСКОЛЬКИХ ДОКУМЕНТОВ:
+`db.nameCollection.insertMany([{"name": "Bob", "age": 26, "languages": ["english", "french"]}, 
+{"name": "Alice", "age": 31, "languages":["german", "english"]}])`
+
+§ МОЖНО СПЕРВА ОПРЕДЕЛИТЬ ДОКУМЕНТ, А ДАЛЕЕ ДОБАВИТЬ ЕГО В БД:
+`document=({"name": "Bill", "age": 32, "languages": ["english", "french"]})
+ db.users.insertOne(document)
+`
+
+§ ПОЛУЧЕНИЕ ДОКУМЕНТОВ:
+`db.nameCollection.find()`
+
+§ ПОИСК ПО ДОКУМЕНТАМ:
+`db.nameCollection.find({ name: "Artem" })`
+
+§ ОБНОВЛЕНИЕ ДОКУМЕНТА 
+`db.nameCollection.updateOne({ name: "Artem" }, { $set: { age: 37 } })`
+
+§ УДАЛЕНИЕ ДОКУМЕНТА:
+`db.nameCollection.deleteOne({ name: "Artem" })`
+
+§ ВЫВОД ДАННЫХ С ПОМОЩЬЮ КУРСОРА:
+`
+> let cursor = db.users.find()
+> while (cursor.hasNext()){
+... obj = cursor.next();
+... print(obj["name"]);
+... }
+Alice
+Lene
+Kate
+Artem
+Liza
+Nobody
+> 
+`
+или 
+
+`
+> let cursor = db.users.find()
+> cursor.forEach(obj => print(obj.name))
+`
+
+§  Заменить один документ другим:
+`
+db.collection.replaceOne(filter(документ для обновления), update(новый док, который заменит старый), options(доп парметры, основной это upsert))
+`
+
+- Живой пример:
+`
+db.users.replaceOne({name: "Bob"}, {name: "Bob", age: 25})
+`
+
+§ ОБНОВИТЬ ОДИН ДОКУМЕНТ:
+`
+db.users.updateOne({name : "Tom", age: 22}, {$set: {name: "Tomas", age : 28}})
+`
+
+§ ОБНОВИТЬ МНОГО ДОКУМЕНТОВ:
+`	
+db.users.updateMany({name : "Tom"}, {$set: {name : "Tomas"}})
+`
+
+§ УДАЛЕНИЕ КОЛЛЕКЦИИ БД:
+`
+db.users.drop()
+`
+
+§ ПЕРЕИМЕНОВАНИЕ КОЛЛЕКЦИИ:
+`db.oldName.renameCollection("новое_название")`
+
+§ УДАЛЕНИЕ БД:
+`
+db.dropDatabase()
+`
+
+§ АВТОМАТИЧЕСКОЕ СВЯЗЫВАНИЕ DBRef:
+`
+{ "$ref" : название_коллекции, "$id": значение [, "$db" : название_бд ]}
+`
+
+
+
+// ЕЩЕ КОМАНДЫ:
+
+§ ПОЛУЧИТЬ СТАТИСТИКУ ПО ТЕКУЩЕЙ БД:
+`db.stats()`
+
+§ ПОЛУЧИТЬ СТАТИСТИКУ ПО КОЛЛЕКЦИИ:
+`db.nameCollection.stats()`
+
+§ Выберем документы с 4(skip(3)) по 6(limit(3)):
+`db.users.find().skip(3).limit(3)`
+
+§ Сортировка документов (по возрастанию: 1, по убыванию: -1):
+`db.users.find().sort({name: 1})`
+
+§ ОСТАВИТЬ ОПРЕДЕЛЕННЫЕ ЭЛЕМЕНТЫ В МАССИВЕ:
+- 1 = последний элемент 
+  1 = первый елемент 
+`db.users.find ({name: "Tom"}, {languages: {$slice : -1}});`
+
+или
+
+- последний и единственный
+`db.users.find ({name: "Tom"}, {languages: {$slice : [-2, 1]}});`
+

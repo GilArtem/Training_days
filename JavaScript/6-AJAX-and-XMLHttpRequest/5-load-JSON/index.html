@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOAD JSON</title>
+</head>
+<body>
+    <script>
+        const xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+            if(xhr.status == 200) {
+                const json = xhr.response;
+                console.log(json);
+            }
+        };
+
+        xhr.open('GET', '/data');
+        xhr.responseType = "json";
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send();
+    </script>
+</body>
+</html>
